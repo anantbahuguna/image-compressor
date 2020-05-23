@@ -1,36 +1,42 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import handleImageUpload from "../actions/compressImage";
+import { ImageContext } from "../context/ImageContext";
 
-const ImageCard = ({ image, setCompressedImage, toggleModal }) => {
+const ImageCard = () => {
+    const { originalImageContext, compressedImageContext } = useContext(
+        ImageContext
+    );
     const [isLoading, setIsLoading] = useState("");
-    const { imageFile, imageLink, imageName, imageSize } = image;
+    const [originalImage, setOriginalImage] = originalImageContext;
+    const [compressedImage, setCompressedImage] = compressedImageContext;
+    const { imageFile, imageLink, imageName, imageSize } = originalImage;
 
     useEffect(() => {
         if (imageLink) {
             document
-                .getElementById("image-card")
+                .getElementById("tabs")
                 .scrollIntoView({ behavior: "smooth" });
         }
     });
 
-    const handleClick = async () => {
-        setIsLoading("is-loading");
-        const reader = new FileReader();
-        const compressed = await handleImageUpload(imageFile);
-        console.log(compressed);
-        reader.readAsDataURL(compressed);
-        reader.onload = () => {
-            const imageLink = reader.result;
-            setCompressedImage({
-                imageFile: compressed,
-                imageLink,
-                imageName: `compressed - ${imageName}`,
-                imageSize: (compressed.size / 1024 / 1024).toFixed(2),
-            });
-        };
-        toggleModal();
-        setIsLoading("");
-    };
+    // const handleClick = async () => {
+    //     setIsLoading("is-loading");
+    //     const reader = new FileReader();
+    //     const compressed = await handleImageUpload(imageFile);
+    //     console.log(compressed);
+    //     reader.readAsDataURL(compressed);
+    //     reader.onload = () => {
+    //         const imageLink = reader.result;
+    //         setCompressedImage({
+    //             imageFile: compressed,
+    //             imageLink,
+    //             imageName: `compressed - ${imageName}`,
+    //             imageSize: (compressed.size / 1024 / 1024).toFixed(2),
+    //         });
+    //     };
+    //     // toggleModal();
+    //     setIsLoading("");
+    // };
     if (imageLink) {
         return (
             <div className="columns is-mobile is-centered" id="image-card">
@@ -55,7 +61,7 @@ const ImageCard = ({ image, setCompressedImage, toggleModal }) => {
                                 </div>
                                 <div className="content">
                                     <p className="subtitle is-6">{imageName}</p>
-                                    <button
+                                    {/*<button
                                         className={
                                             "button is-danger is-small is-rounded is-outlined " +
                                             isLoading
@@ -63,7 +69,7 @@ const ImageCard = ({ image, setCompressedImage, toggleModal }) => {
                                         onClick={handleClick}
                                     >
                                         Compress
-                                    </button>
+                                    </button> */}
                                 </div>
                             </div>
 

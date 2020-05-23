@@ -1,7 +1,17 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
+import { ImageContext } from "../context/ImageContext";
+import handleImageUpload from "../actions/compressImage";
 
-const UploadImage = ({ setOriginalImage }) => {
-    const handleChange = (e) => {
+const UploadImage = () => {
+    const {
+        originalImageContext,
+        compressedImageContext,
+        tabContext,
+    } = useContext(ImageContext);
+    const [originalImage, setOriginalImage] = originalImageContext;
+    const [compressedImage, setCompressedImage] = compressedImageContext;
+    const [activeTab, setActiveTab] = tabContext;
+    const handleChange = async (e) => {
         const reader = new FileReader();
         const imageFile = e.target.files[0];
 
@@ -18,6 +28,21 @@ const UploadImage = ({ setOriginalImage }) => {
             console.log(imageFile.size);
 
             reader.readAsDataURL(imageFile);
+            setActiveTab("original");
+
+            const reader2 = new FileReader();
+            const compressed = await handleImageUpload(imageFile);
+            console.log(compressed);
+            reader2.readAsDataURL(compressed);
+            reader2.onload = () => {
+                const imageLink = reader2.result;
+                setCompressedImage({
+                    imageFile: compressed,
+                    imageLink,
+                    imageName: `${imageFile.name}`,
+                    imageSize: (compressed.size / 1024 / 1024).toFixed(2),
+                });
+            };
         }
     };
     return (

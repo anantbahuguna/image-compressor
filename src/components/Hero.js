@@ -2,7 +2,7 @@ import React from "react";
 import UploadImage from "./UploadImage";
 import compressImg from "../images/compress2.png";
 
-const Hero = ({ setOriginalImage }) => {
+const Hero = () => {
     return (
         <section className="hero is-medium is-light is-bold" style={S}>
             <div className="hero-body">
@@ -21,8 +21,9 @@ const Hero = ({ setOriginalImage }) => {
                     </div>
                     <h2 className="subtitle">✔ Download Option</h2>
                     <h2 className="subtitle">✔ Offline Support</h2>
+                    <h2 className="subtitle">✔ Install Option</h2>
                     <br />
-                    <UploadImage setOriginalImage={setOriginalImage} />
+                    <UploadImage />
                 </div>
             </div>
         </section>
