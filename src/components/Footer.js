@@ -6,6 +6,7 @@ const Footer = () => {
             <div className="content has-text-centered">
                 <a
                     href="https://github.com/anant-bahuguna/image-compressor"
+                    target="_blank"
                     className="button"
                 >
                     <span className="icon">
