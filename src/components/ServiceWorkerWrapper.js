@@ -23,7 +23,7 @@ const ServiceWorkerWrapper = () => {
         }
     };
 
-    return <UpdateMessage showReload={showReload} onClick={reloadPage} />;
+    return <UpdateMessage showReload={showReload} reloadPage={reloadPage} />;
 };
 
 export default ServiceWorkerWrapper;
