@@ -43,7 +43,7 @@ const ImageCard = () => {
                 <div className="column is-three-quarters-mobile is-half-tablet  is-one-quarter-desktop">
                     <div className="card">
                         <div className="card-image">
-                            <figure className="image ">
+                            <figure className="image is-3by3">
                                 <img src={imageLink} alt={imageName} />
                             </figure>
                         </div>
